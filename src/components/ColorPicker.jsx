@@ -61,67 +61,69 @@ const ColorPicker = ({ colorHSL }) => {
   };
 
   return (
-    <Container onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <Container>
       <canvas ref={canvasRef} width={width} height={height} />
 
-      <Pointer
-        top={pointers.pointer1.y}
-        left={pointers.pointer1.x}
-        onMouseDown={() => handleMouseDown("pointer1")}
-      />
-
-      <Pointer
-        top={pointers.pointer2.y}
-        left={pointers.pointer2.x}
-        onMouseDown={() => handleMouseDown("pointer2")}
-      />
-
-      <Pointer
-        top={pointers.pointer3.y}
-        left={pointers.pointer3.x}
-        onMouseDown={() => handleMouseDown("pointer3")}
-      />
-
-      <Pointer
-        top={pointers.pointer4.y}
-        left={pointers.pointer4.x}
-        onMouseDown={() => handleMouseDown("pointer4")}
-      />
-
-      <Lines>
-        <svg width={width} height={height} strokeWidth="2">
-          <line
-            x1={pointers.pointer1.x + 5}
-            y1={pointers.pointer1.y + 5}
-            x2={pointers.pointer2.x + 5}
-            y2={pointers.pointer2.y + 5}
-            stroke="white"
+      <Pointers>
+        <svg
+          width={width}
+          height={height}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+        >
+          <circle
+            onMouseDown={() => handleMouseDown("pointer1")}
+            cx={pointers.pointer1.x}
+            cy={pointers.pointer1.y}
           />
 
           <line
-            x1={pointers.pointer2.x + 5}
-            y1={pointers.pointer2.y + 5}
-            x2={pointers.pointer3.x + 5}
-            y2={pointers.pointer3.y + 5}
-            stroke="white"
+            x1={pointers.pointer1.x}
+            y1={pointers.pointer1.y}
+            x2={pointers.pointer2.x}
+            y2={pointers.pointer2.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer2")}
+            cx={pointers.pointer2.x}
+            cy={pointers.pointer2.y}
           />
 
           <line
-            x1={pointers.pointer3.x + 5}
-            y1={pointers.pointer3.y + 5}
-            x2={pointers.pointer4.x + 5}
-            y2={pointers.pointer4.y + 5}
-            stroke="white"
+            x1={pointers.pointer2.x}
+            y1={pointers.pointer2.y}
+            x2={pointers.pointer3.x}
+            y2={pointers.pointer3.y}
           />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer3")}
+            cx={pointers.pointer3.x}
+            cy={pointers.pointer3.y}
+          />
+
           <line
-            x1={pointers.pointer4.x + 5}
-            y1={pointers.pointer4.y + 5}
-            x2={pointers.pointer1.x + 5}
-            y2={pointers.pointer1.y + 5}
-            stroke="white"
+            x1={pointers.pointer3.x}
+            y1={pointers.pointer3.y}
+            x2={pointers.pointer4.x}
+            y2={pointers.pointer4.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer4")}
+            cx={pointers.pointer4.x}
+            cy={pointers.pointer4.y}
+          />
+
+          <line
+            x1={pointers.pointer4.x}
+            y1={pointers.pointer4.y}
+            x2={pointers.pointer1.x}
+            y2={pointers.pointer1.y}
           />
         </svg>
-      </Lines>
+      </Pointers>
     </Container>
   );
 };
@@ -134,26 +136,22 @@ const Container = styled.div`
   }
 `;
 
-const Pointer = styled.span.attrs(({ top, left }) => ({
-  style: {
-    top: `${top}px`,
-    left: `${left}px`,
-  },
-}))`
-  position: absolute;
-  background-color: #ffffff;
-  width: 10px;
-  height: 10px;
-  border-radius: 50px;
-  cursor: pointer;
-  z-index: 2;
-`;
-
-const Lines = styled.div`
+const Pointers = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   z-index: 1;
+
+  circle {
+    r: 6;
+    fill: #ffffff;
+    cursor: pointer;
+  }
+
+  line {
+    stroke: #ffffff;
+    stroke-width: 2;
+  }
 `;
 
 export default ColorPicker;
