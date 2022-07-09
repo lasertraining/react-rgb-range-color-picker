@@ -28,7 +28,8 @@ function Hue({ colorHSL, setColorHSL }) {
     const { value } = e.target;
     setValue(value);
 
-    const context = canvasRef.current.getContext("2d");
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
     const { data } = context.getImageData(value, 0, 1, 1);
     const red = data[0];
     const green = data[1];

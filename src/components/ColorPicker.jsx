@@ -22,6 +22,93 @@ const ColorPicker = ({ colorHSL }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    const { data: pointer1Data } = context.getImageData(
+      pointers.pointer1.x,
+      pointers.pointer1.y,
+      1,
+      1
+    );
+
+    const { data: pointer2Data } = context.getImageData(
+      pointers.pointer2.x,
+      pointers.pointer2.y,
+      1,
+      1
+    );
+
+    const { data: pointer3Data } = context.getImageData(
+      pointers.pointer3.x,
+      pointers.pointer3.y,
+      1,
+      1
+    );
+
+    const { data: pointer4Data } = context.getImageData(
+      pointers.pointer4.x,
+      pointers.pointer4.y,
+      1,
+      1
+    );
+
+    const redChannelMin = Math.min(
+      pointer1Data[0],
+      pointer2Data[0],
+      pointer3Data[0],
+      pointer4Data[0]
+    );
+
+    const redChannelMax = Math.max(
+      pointer1Data[0],
+      pointer2Data[0],
+      pointer3Data[0],
+      pointer4Data[0]
+    );
+
+    const greenChannelMin = Math.min(
+      pointer1Data[1],
+      pointer2Data[1],
+      pointer3Data[1],
+      pointer4Data[1]
+    );
+
+    const greenChannelMax = Math.max(
+      pointer1Data[1],
+      pointer2Data[1],
+      pointer3Data[1],
+      pointer4Data[1]
+    );
+
+    const blueChannelMin = Math.min(
+      pointer1Data[2],
+      pointer2Data[2],
+      pointer3Data[2],
+      pointer4Data[2]
+    );
+
+    const blueChannelMax = Math.max(
+      pointer1Data[2],
+      pointer2Data[2],
+      pointer3Data[2],
+      pointer4Data[2]
+    );
+
+    const colorRange = {
+      redChannelMin,
+      redChannelMax,
+      greenChannelMin,
+      greenChannelMax,
+      blueChannelMin,
+      blueChannelMax,
+    };
+
+    // @TODO: Remove
+    console.log(colorRange);
+  }, [colorHSL, pointers]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
     context.fillStyle = `hsl(${colorHSL[0]}, 100%, 50%)`;
     context.fillRect(0, 0, width, height);
 
