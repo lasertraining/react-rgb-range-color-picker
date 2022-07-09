@@ -43,10 +43,12 @@ function Hue({ colorHSL, setColorHSL }) {
 
       <Input
         type="range"
-        min="0"
         value={value}
-        max={width - 1}
         onChange={handleColor}
+        min="0"
+        max={width - 1}
+        width={width}
+        height={height}
         color={`hsl(${colorHSL[0]},${colorHSL[1]}%, ${colorHSL[2]}%)`}
       />
     </Container>
@@ -64,21 +66,24 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.input`
+const Input = styled.input.attrs(({ width, height }) => ({
+  style: {
+    width: `${width}px`,
+    height: `${height}px`,
+  },
+}))`
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   outline: none;
   background: none;
 
   border-radius: 50px;
-  width: 100%;
-  height: 15px;
-
   position: absolute;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none; /* Override default CSS styles */
     appearance: none;
+    // Not possible to fix error: Over 200 classes were generated for component styled.input
     background-color: ${({ color }) => color};
 
     border-radius: 10px;
