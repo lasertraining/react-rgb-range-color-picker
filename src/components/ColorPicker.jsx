@@ -16,7 +16,7 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
   const canvasRef = useRef(null);
 
   const width = 250;
-  const height = 250;
+  const height = 200;
 
   useEffect(() => {
     const canvas = canvasRef.current;
