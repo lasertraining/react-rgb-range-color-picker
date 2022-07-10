@@ -7,16 +7,16 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
   const [selectedPointer, setSelectedPointer] = useState("");
 
   const [pointers, setPointers] = useState({
-    pointer1: { x: 351, y: 40 },
-    pointer2: { x: 384, y: 103 },
-    pointer3: { x: 464, y: 64 },
-    pointer4: { x: 423, y: 22 },
+    pointer1: { x: 105, y: 28 },
+    pointer2: { x: 136, y: 120 },
+    pointer3: { x: 213, y: 103 },
+    pointer4: { x: 212, y: 37 },
   });
 
   const canvasRef = useRef(null);
 
-  const width = 500;
-  const height = 240;
+  const width = 250;
+  const height = 250;
 
   useEffect(() => {
     const canvas = canvasRef.current;

@@ -32,6 +32,7 @@ const Wrapper = styled.div`
   justify-content: center;
   background-color: black;
   min-height: 100vh;
+  padding: 2rem;
 `;
 
 const Container = styled.div`

@@ -7,7 +7,7 @@ function Hue({ colorHSL, setColorHSL }) {
 
   const canvasRef = useRef(null);
 
-  const width = 400;
+  const width = 250;
   const height = 5;
 
   useEffect(() => {
