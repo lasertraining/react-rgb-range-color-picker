@@ -61,6 +61,7 @@ const Container = styled.div`
   align-items: center;
 
   position: relative;
+  margin-top: 2.5rem;
 
   canvas {
     border-radius: 50px;

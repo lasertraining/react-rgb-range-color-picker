@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-const ColorPicker = ({ colorHSL }) => {
+const ColorPicker = ({ colorHSL, setColorRange }) => {
   const [mouseIsDown, setMouseIsDown] = useState(false);
 
   const [selectedPointer, setSelectedPointer] = useState("");
@@ -92,17 +92,14 @@ const ColorPicker = ({ colorHSL }) => {
       pointer4Data[2]
     );
 
-    const colorRange = {
+    setColorRange({
       redChannelMin,
       redChannelMax,
       greenChannelMin,
       greenChannelMax,
       blueChannelMin,
       blueChannelMax,
-    };
-
-    // @TODO: Remove
-    console.log(colorRange);
+    });
   }, [colorHSL, pointers]);
 
   useEffect(() => {
