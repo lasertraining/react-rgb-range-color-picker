@@ -89,6 +89,14 @@ const Input = styled.input.attrs(({ width, height }) => ({
     height: 15px;
     cursor: pointer;
   }
+
+  &::-moz-range-thumb {
+    background-color: ${({ color }) => color};
+    border: none;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+  }
 `;
 
 export default Hue;

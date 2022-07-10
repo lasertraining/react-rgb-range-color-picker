@@ -166,24 +166,28 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
             onMouseDown={() => handleMouseDown("pointer1")}
             cx={pointers.pointer1.x}
             cy={pointers.pointer1.y}
+            r={6}
           />
 
           <circle
             onMouseDown={() => handleMouseDown("pointer2")}
             cx={pointers.pointer2.x}
             cy={pointers.pointer2.y}
+            r={6}
           />
 
           <circle
             onMouseDown={() => handleMouseDown("pointer3")}
             cx={pointers.pointer3.x}
             cy={pointers.pointer3.y}
+            r={6}
           />
 
           <circle
             onMouseDown={() => handleMouseDown("pointer4")}
             cx={pointers.pointer4.x}
             cy={pointers.pointer4.y}
+            r={6}
           />
         </svg>
       </Pointers>
@@ -202,7 +206,6 @@ const Pointers = styled.div`
   z-index: 1;
 
   circle {
-    r: 6;
     fill: #ffffff;
     cursor: pointer;
   }
