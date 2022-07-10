@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-const ColorPicker = ({ colorHSL, setColorRange }) => {
+const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
   const [mouseIsDown, setMouseIsDown] = useState(false);
 
   const [selectedPointer, setSelectedPointer] = useState("");
@@ -71,7 +71,7 @@ const ColorPicker = ({ colorHSL, setColorRange }) => {
       pointer4Data[2],
     ];
 
-    setColorRange({
+    setColorRGBRange({
       redChannelMin: Math.min(...redChannel),
       redChannelMax: Math.max(...redChannel),
       greenChannelMin: Math.min(...greenChannel),
@@ -134,23 +134,11 @@ const ColorPicker = ({ colorHSL, setColorRange }) => {
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
         >
-          <circle
-            onMouseDown={() => handleMouseDown("pointer1")}
-            cx={pointers.pointer1.x}
-            cy={pointers.pointer1.y}
-          />
-
           <line
             x1={pointers.pointer1.x}
             y1={pointers.pointer1.y}
             x2={pointers.pointer2.x}
             y2={pointers.pointer2.y}
-          />
-
-          <circle
-            onMouseDown={() => handleMouseDown("pointer2")}
-            cx={pointers.pointer2.x}
-            cy={pointers.pointer2.y}
           />
 
           <line
@@ -160,12 +148,6 @@ const ColorPicker = ({ colorHSL, setColorRange }) => {
             y2={pointers.pointer3.y}
           />
 
-          <circle
-            onMouseDown={() => handleMouseDown("pointer3")}
-            cx={pointers.pointer3.x}
-            cy={pointers.pointer3.y}
-          />
-
           <line
             x1={pointers.pointer3.x}
             y1={pointers.pointer3.y}
@@ -173,17 +155,35 @@ const ColorPicker = ({ colorHSL, setColorRange }) => {
             y2={pointers.pointer4.y}
           />
 
-          <circle
-            onMouseDown={() => handleMouseDown("pointer4")}
-            cx={pointers.pointer4.x}
-            cy={pointers.pointer4.y}
-          />
-
           <line
             x1={pointers.pointer4.x}
             y1={pointers.pointer4.y}
             x2={pointers.pointer1.x}
             y2={pointers.pointer1.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer1")}
+            cx={pointers.pointer1.x}
+            cy={pointers.pointer1.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer2")}
+            cx={pointers.pointer2.x}
+            cy={pointers.pointer2.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer3")}
+            cx={pointers.pointer3.x}
+            cy={pointers.pointer3.y}
+          />
+
+          <circle
+            onMouseDown={() => handleMouseDown("pointer4")}
+            cx={pointers.pointer4.x}
+            cy={pointers.pointer4.y}
           />
         </svg>
       </Pointers>
@@ -193,10 +193,6 @@ const ColorPicker = ({ colorHSL, setColorRange }) => {
 
 const Container = styled.div`
   position: relative;
-
-  canvas {
-    border-radius: 25px;
-  }
 `;
 
 const Pointers = styled.div`
