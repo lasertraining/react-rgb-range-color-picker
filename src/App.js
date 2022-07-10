@@ -31,6 +31,7 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   background-color: black;
+  min-width: 320px;
   min-height: 100vh;
   padding: 2rem;
 `;
