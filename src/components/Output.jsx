@@ -1,20 +1,14 @@
 import styled from "styled-components";
 
 const Output = ({ colorRGBRange }) => {
-  const {
-    redChannelMin,
-    redChannelMax,
-    greenChannelMin,
-    greenChannelMax,
-    blueChannelMin,
-    blueChannelMax,
-  } = colorRGBRange;
+  const { redMin, redMax, greenMin, greenMax, blueMin, blueMax } =
+    colorRGBRange;
 
   return (
     <Code>
-      {`{ redChannelMin: ${redChannelMin}, redChannelMax: ${redChannelMax},
-        greenChannelMin: ${greenChannelMin}, greenChannelMax: ${greenChannelMax},
-        blueChannelMin: ${blueChannelMin}, blueChannelMax: ${blueChannelMax} }`}
+      {`{ redMin: ${redMin}, redMax: ${redMax},
+        greenMin: ${greenMin}, greenMax: ${greenMax},
+        blueMin: ${blueMin}, blueMax: ${blueMax} }`}
     </Code>
   );
 };

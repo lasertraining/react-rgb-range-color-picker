@@ -50,21 +50,21 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
       1
     );
 
-    const redChannel = [
+    const red = [
       pointer1Data[0],
       pointer2Data[0],
       pointer3Data[0],
       pointer4Data[0],
     ];
 
-    const greenChannel = [
+    const green = [
       pointer1Data[1],
       pointer2Data[1],
       pointer3Data[1],
       pointer4Data[1],
     ];
 
-    const blueChannel = [
+    const blue = [
       pointer1Data[2],
       pointer2Data[2],
       pointer3Data[2],
@@ -72,12 +72,12 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
     ];
 
     setColorRGBRange({
-      redChannelMin: Math.min(...redChannel),
-      redChannelMax: Math.max(...redChannel),
-      greenChannelMin: Math.min(...greenChannel),
-      greenChannelMax: Math.max(...greenChannel),
-      blueChannelMin: Math.min(...blueChannel),
-      blueChannelMax: Math.max(...blueChannel),
+      redMin: Math.min(...red),
+      redMax: Math.max(...red),
+      greenMin: Math.min(...green),
+      greenMax: Math.max(...green),
+      blueMin: Math.min(...blue),
+      blueMax: Math.max(...blue),
     });
   }, [colorHSL, pointers]);
 

@@ -7,12 +7,12 @@ import styled from "styled-components";
 function App() {
   const [colorHSL, setColorHSL] = useState([0, 100, 50]);
   const [colorRGBRange, setColorRGBRange] = useState({
-    redChannelMin: 0,
-    redChannelMax: 0,
-    greenChannelMin: 0,
-    greenChannelMax: 0,
-    blueChannelMin: 0,
-    blueChannelMax: 0,
+    redMin: 0,
+    redMax: 0,
+    greenMin: 0,
+    greenMax: 0,
+    blueMin: 0,
+    blueMax: 0,
   });
 
   return (

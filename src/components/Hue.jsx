@@ -59,7 +59,6 @@ function Hue({ colorHSL, setColorHSL }) {
 const Container = styled.div`
   display: flex;
   align-items: center;
-
   position: relative;
   margin-top: 2.5rem;
 
@@ -74,24 +73,20 @@ const Input = styled.input.attrs(({ width, height }) => ({
     height: `${height}px`,
   },
 }))`
-  -webkit-appearance: none; /* Override default CSS styles */
+  -webkit-appearance: none;
   appearance: none;
   outline: none;
   background: none;
-
   border-radius: 50px;
   position: absolute;
 
   &::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default CSS styles */
+    -webkit-appearance: none;
     appearance: none;
-    // Not possible to fix error: Over 200 classes were generated for component styled.input
     background-color: ${({ color }) => color};
-
     border-radius: 10px;
     width: 15px;
     height: 15px;
-
     cursor: pointer;
   }
 `;
