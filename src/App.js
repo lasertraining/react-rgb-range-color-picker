@@ -1,4 +1,5 @@
 import { useState } from "react";
+import GitHub from "./components/GitHub";
 import ColorPicker from "./components/ColorPicker";
 import Hue from "./components/Hue";
 import Output from "./components/Output";
@@ -17,29 +18,18 @@ function App() {
 
   return (
     <Wrapper>
-      <Container>
-        <ColorPicker
-          colorHSLHue={colorHSLHue}
-          setColorRGBRange={setColorRGBRange}
-        />
-        <Hue colorHSLHue={colorHSLHue} setColorHSLHue={setColorHSLHue} />
-        <Output colorRGBRange={colorRGBRange} />
-      </Container>
+      <GitHub />
+      <ColorPicker
+        colorHSLHue={colorHSLHue}
+        setColorRGBRange={setColorRGBRange}
+      />
+      <Hue colorHSLHue={colorHSLHue} setColorHSLHue={setColorHSLHue} />
+      <Output colorRGBRange={colorRGBRange} />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: black;
-  min-width: 320px;
-  min-height: 100vh;
-  padding: 2rem;
-`;
-
-const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;

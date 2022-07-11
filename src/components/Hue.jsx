@@ -1,12 +1,27 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
 function Hue({ colorHSLHue, setColorHSLHue }) {
+  const [rangeValue, setRangeValue] = useState(0);
+
   const canvasRef = useRef(null);
 
   const width = 250;
   const height = 5;
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
+    const { data: RGBData } = context.getImageData(rangeValue, 0, 1, 1);
+
+    const red = RGBData[0];
+    const green = RGBData[1];
+    const blue = RGBData[2];
+
+    setColorHSLHue(RGBToHSL(red, green, blue));
+  }, [rangeValue, setColorHSLHue]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,27 +37,14 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
     context.fillRect(0, 0, width, height);
   }, []);
 
-  const handleHue = (e) => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-
-    const { data: RGBData } = context.getImageData(e.target.value, 0, 1, 1);
-
-    const red = RGBData[0];
-    const green = RGBData[1];
-    const blue = RGBData[2];
-
-    setColorHSLHue(RGBToHSL(red, green, blue));
-  };
-
   return (
     <Container>
       <canvas ref={canvasRef} width={width} height={height} />
 
       <Input
         type="range"
-        defaultValue="0"
-        onChange={handleHue}
+        value={rangeValue}
+        onChange={(e) => setRangeValue(e.target.value)}
         min="0"
         max={width - 1}
         width={width}
@@ -56,7 +58,7 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
 const Container = styled.div`
   display: flex;
   position: relative;
-  margin-top: 2.5rem;
+  margin-top: 5rem;
 
   canvas {
     border-radius: 50px;

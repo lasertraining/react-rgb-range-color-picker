@@ -5,9 +5,11 @@
 }
 
 body {
+  background-color: black;
   font-family: sans-serif;
-  color: #97adad;
   font-size: 15px;
+  color: #97adad;
+  min-width: 320px;
 }
 
 /* Chrome, Safari, Edge, Opera */

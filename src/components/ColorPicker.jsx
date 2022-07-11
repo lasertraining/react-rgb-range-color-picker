@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { useWindowWidth } from "../hooks/useWindowWidth";
 import styled from "styled-components";
 
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
@@ -15,8 +16,8 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
 
   const canvasRef = useRef(null);
 
-  const width = 250;
-  const height = 200;
+  const width = useWindowWidth() || window.innerWidth;
+  const height = 500;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -99,7 +100,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
     blackGradient.addColorStop(1, "hsla(0, 0%, 0%, 0%");
     context.fillStyle = blackGradient;
     context.fillRect(0, 0, width, height);
-  }, [colorHSLHue]);
+  }, [width, colorHSLHue]);
 
   const handleDown = (pointer) => {
     setDown(true);

@@ -14,7 +14,8 @@ const Output = ({ colorRGBRange }) => {
 };
 
 const Code = styled.code`
-  margin-top: 5rem;
+  margin-top: 3rem;
+  padding: 2rem;
   line-height: 1.7;
   text-align: center;
 `;
