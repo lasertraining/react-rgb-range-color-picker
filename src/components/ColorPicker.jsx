@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
-const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
+const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   const [down, setDown] = useState(false);
 
   const [selectedPointer, setSelectedPointer] = useState("");
@@ -79,13 +79,13 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
       blueMin: Math.min(...blue),
       blueMax: Math.max(...blue),
     });
-  }, [colorHSL, pointers, setColorRGBRange]);
+  }, [colorHSLHue, pointers, setColorRGBRange]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    context.fillStyle = `hsl(${colorHSL[0]}, 100%, 50%)`;
+    context.fillStyle = `hsl(${colorHSLHue[0]}, 100%, 50%)`;
     context.fillRect(0, 0, width, height);
 
     const whiteGradient = context.createLinearGradient(0, 0, width, 0);
@@ -99,7 +99,7 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
     blackGradient.addColorStop(1, "hsla(0, 0%, 0%, 0%");
     context.fillStyle = blackGradient;
     context.fillRect(0, 0, width, height);
-  }, [colorHSL]);
+  }, [colorHSLHue]);
 
   const handleDown = (pointer) => {
     setDown(true);

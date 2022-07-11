@@ -5,7 +5,7 @@ import Output from "./components/Output";
 import styled from "styled-components";
 
 function App() {
-  const [colorHSL, setColorHSL] = useState([0, 100, 50]);
+  const [colorHSLHue, setColorHSLHue] = useState([0, 100, 50]);
   const [colorRGBRange, setColorRGBRange] = useState({
     redMin: 0,
     redMax: 0,
@@ -18,8 +18,11 @@ function App() {
   return (
     <Wrapper>
       <Container>
-        <ColorPicker colorHSL={colorHSL} setColorRGBRange={setColorRGBRange} />
-        <Hue colorHSL={colorHSL} setColorHSL={setColorHSL} />
+        <ColorPicker
+          colorHSLHue={colorHSLHue}
+          setColorRGBRange={setColorRGBRange}
+        />
+        <Hue colorHSLHue={colorHSLHue} setColorHSLHue={setColorHSLHue} />
         <Output colorRGBRange={colorRGBRange} />
       </Container>
     </Wrapper>

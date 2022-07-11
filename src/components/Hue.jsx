@@ -1,10 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
-function Hue({ colorHSL, setColorHSL }) {
-  const [value, setValue] = useState(0);
-
+function Hue({ colorHSLHue, setColorHSLHue }) {
   const canvasRef = useRef(null);
 
   const width = 250;
@@ -24,18 +22,17 @@ function Hue({ colorHSL, setColorHSL }) {
     context.fillRect(0, 0, width, height);
   }, []);
 
-  const handleColor = (e) => {
-    const { value } = e.target;
-    setValue(value);
-
+  const handleHue = (e) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
-    const { data } = context.getImageData(value, 0, 1, 1);
-    const red = data[0];
-    const green = data[1];
-    const blue = data[2];
 
-    setColorHSL(RGBToHSL(red, green, blue));
+    const { data: RGBData } = context.getImageData(e.target.value, 0, 1, 1);
+
+    const red = RGBData[0];
+    const green = RGBData[1];
+    const blue = RGBData[2];
+
+    setColorHSLHue(RGBToHSL(red, green, blue));
   };
 
   return (
@@ -44,13 +41,13 @@ function Hue({ colorHSL, setColorHSL }) {
 
       <Input
         type="range"
-        value={value}
-        onChange={handleColor}
+        defaultValue="0"
+        onChange={handleHue}
         min="0"
         max={width - 1}
         width={width}
         height={height}
-        color={`hsl(${colorHSL[0]},${colorHSL[1]}%, ${colorHSL[2]}%)`}
+        color={`hsl(${colorHSLHue[0]},${colorHSLHue[1]}%, ${colorHSLHue[2]}%)`}
       />
     </Container>
   );
@@ -58,7 +55,6 @@ function Hue({ colorHSL, setColorHSL }) {
 
 const Container = styled.div`
   display: flex;
-  align-items: center;
   position: relative;
   margin-top: 2.5rem;
 
@@ -67,18 +63,19 @@ const Container = styled.div`
   }
 `;
 
-const Input = styled.input.attrs(({ width, height }) => ({
-  style: {
-    width: `${width}px`,
-    height: `${height}px`,
-  },
-}))`
+const Input = styled.input`
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: ${({ width }) => `${width}px`};
+  height: ${({ height }) => `${height}px`};
+
   -webkit-appearance: none;
   appearance: none;
   outline: none;
   background: none;
   border-radius: 50px;
-  position: absolute;
 
   &::-webkit-slider-thumb {
     -webkit-appearance: none;
