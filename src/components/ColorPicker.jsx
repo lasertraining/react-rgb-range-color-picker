@@ -79,7 +79,7 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
       blueMin: Math.min(...blue),
       blueMax: Math.max(...blue),
     });
-  }, [colorHSL, pointers]);
+  }, [colorHSL, pointers, setColorRGBRange]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
