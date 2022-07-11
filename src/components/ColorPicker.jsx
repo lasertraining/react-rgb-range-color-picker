@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 
 const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
-  const [mouseIsDown, setMouseIsDown] = useState(false);
+  const [down, setDown] = useState(false);
 
   const [selectedPointer, setSelectedPointer] = useState("");
 
@@ -101,13 +101,13 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
     context.fillRect(0, 0, width, height);
   }, [colorHSL]);
 
-  const handleMouseDown = (pointer) => {
-    setMouseIsDown(true);
+  const handleDown = (pointer) => {
+    setDown(true);
     setSelectedPointer(pointer);
   };
 
-  const handleMouseMove = (e) => {
-    if (mouseIsDown) {
+  const handleMove = (e) => {
+    if (down) {
       const canvas = canvasRef.current;
       const rect = canvas.getBoundingClientRect();
 
@@ -128,8 +128,8 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
     }
   };
 
-  const handleMouseUp = () => {
-    setMouseIsDown(false);
+  const handleUp = () => {
+    setDown(false);
     setSelectedPointer("");
   };
 
@@ -141,10 +141,10 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
         <svg
           width={width}
           height={height}
-          onMouseMove={handleMouseMove}
-          onTouchMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onTouchEnd={handleMouseUp}
+          onMouseMove={handleMove}
+          onTouchMove={handleMove}
+          onMouseUp={handleUp}
+          onTouchEnd={handleUp}
         >
           <line
             x1={pointers.pointer1.x}
@@ -175,32 +175,32 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
           />
 
           <circle
-            onMouseDown={() => handleMouseDown("pointer1")}
-            onTouchStart={() => handleMouseDown("pointer1")}
+            onMouseDown={() => handleDown("pointer1")}
+            onTouchStart={() => handleDown("pointer1")}
             cx={pointers.pointer1.x}
             cy={pointers.pointer1.y}
             r={6}
           />
 
           <circle
-            onMouseDown={() => handleMouseDown("pointer2")}
-            onTouchStart={() => handleMouseDown("pointer2")}
+            onMouseDown={() => handleDown("pointer2")}
+            onTouchStart={() => handleDown("pointer2")}
             cx={pointers.pointer2.x}
             cy={pointers.pointer2.y}
             r={6}
           />
 
           <circle
-            onMouseDown={() => handleMouseDown("pointer3")}
-            onTouchStart={() => handleMouseDown("pointer3")}
+            onMouseDown={() => handleDown("pointer3")}
+            onTouchStart={() => handleDown("pointer3")}
             cx={pointers.pointer3.x}
             cy={pointers.pointer3.y}
             r={6}
           />
 
           <circle
-            onMouseDown={() => handleMouseDown("pointer4")}
-            onTouchStart={() => handleMouseDown("pointer4")}
+            onMouseDown={() => handleDown("pointer4")}
+            onTouchStart={() => handleDown("pointer4")}
             cx={pointers.pointer4.x}
             cy={pointers.pointer4.y}
             r={6}
