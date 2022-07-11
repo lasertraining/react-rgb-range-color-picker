@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useWindowWidth } from "../hooks/useWindowWidth";
+import { norm } from "../utils/norm";
 import styled from "styled-components";
 
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
@@ -8,10 +9,10 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   const [selectedPointer, setSelectedPointer] = useState("");
 
   const [pointers, setPointers] = useState({
-    pointer1: { x: 105, y: 28 },
-    pointer2: { x: 136, y: 120 },
-    pointer3: { x: 213, y: 103 },
-    pointer4: { x: 212, y: 37 },
+    pointer1: { x: 0.7817708333333333, y: 0.206 },
+    pointer2: { x: 0.6682291666666667, y: 0.134 },
+    pointer3: { x: 0.6442708333333333, y: 0.336 },
+    pointer4: { x: 0.725, y: 0.596 },
   });
 
   const canvasRef = useRef(null);
@@ -19,34 +20,43 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   const width = useWindowWidth() || window.innerWidth;
   const height = 500;
 
+  const pointer1X = pointers.pointer1.x * width;
+  const pointer1Y = pointers.pointer1.y * height;
+  const pointer2X = pointers.pointer2.x * width;
+  const pointer2Y = pointers.pointer2.y * height;
+  const pointer3X = pointers.pointer3.x * width;
+  const pointer3Y = pointers.pointer3.y * height;
+  const pointer4X = pointers.pointer4.x * width;
+  const pointer4Y = pointers.pointer4.y * height;
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
     const { data: pointer1Data } = context.getImageData(
-      pointers.pointer1.x,
-      pointers.pointer1.y,
+      pointer1X,
+      pointer1Y,
       1,
       1
     );
 
     const { data: pointer2Data } = context.getImageData(
-      pointers.pointer2.x,
-      pointers.pointer2.y,
+      pointer2X,
+      pointer2Y,
       1,
       1
     );
 
     const { data: pointer3Data } = context.getImageData(
-      pointers.pointer3.x,
-      pointers.pointer3.y,
+      pointer3X,
+      pointer3Y,
       1,
       1
     );
 
     const { data: pointer4Data } = context.getImageData(
-      pointers.pointer4.x,
-      pointers.pointer4.y,
+      pointer4X,
+      pointer4Y,
       1,
       1
     );
@@ -80,7 +90,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       blueMin: Math.min(...blue),
       blueMax: Math.max(...blue),
     });
-  }, [colorHSLHue, pointers, setColorRGBRange]);
+  }, [colorHSLHue, setColorRGBRange, pointers]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -122,9 +132,12 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
           ? e.changedTouches[0].clientY - rect.top
           : e.clientY - rect.top;
 
+      const normalizedX = norm(x, 0, width);
+      const normalizedY = norm(y, 0, height);
+
       setPointers((prevState) => ({
         ...prevState,
-        [selectedPointer]: { x, y },
+        [selectedPointer]: { x: normalizedX, y: normalizedY },
       }));
     }
   };
@@ -144,63 +157,43 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       <canvas ref={canvasRef} width={width} height={height} />
 
       <svg width={width} height={height}>
-        <line
-          x1={pointers.pointer1.x}
-          y1={pointers.pointer1.y}
-          x2={pointers.pointer2.x}
-          y2={pointers.pointer2.y}
-        />
+        <line x1={pointer1X} y1={pointer1Y} x2={pointer2X} y2={pointer2Y} />
 
-        <line
-          x1={pointers.pointer2.x}
-          y1={pointers.pointer2.y}
-          x2={pointers.pointer3.x}
-          y2={pointers.pointer3.y}
-        />
+        <line x1={pointer2X} y1={pointer2Y} x2={pointer3X} y2={pointer3Y} />
 
-        <line
-          x1={pointers.pointer3.x}
-          y1={pointers.pointer3.y}
-          x2={pointers.pointer4.x}
-          y2={pointers.pointer4.y}
-        />
+        <line x1={pointer3X} y1={pointer3Y} x2={pointer4X} y2={pointer4Y} />
 
-        <line
-          x1={pointers.pointer4.x}
-          y1={pointers.pointer4.y}
-          x2={pointers.pointer1.x}
-          y2={pointers.pointer1.y}
-        />
+        <line x1={pointer4X} y1={pointer4Y} x2={pointer1X} y2={pointer1Y} />
 
         <circle
           onMouseDown={() => handleDown("pointer1")}
           onTouchStart={() => handleDown("pointer1")}
-          cx={pointers.pointer1.x}
-          cy={pointers.pointer1.y}
+          cx={pointer1X}
+          cy={pointer1Y}
           r={6}
         />
 
         <circle
           onMouseDown={() => handleDown("pointer2")}
           onTouchStart={() => handleDown("pointer2")}
-          cx={pointers.pointer2.x}
-          cy={pointers.pointer2.y}
+          cx={pointer2X}
+          cy={pointer2Y}
           r={6}
         />
 
         <circle
           onMouseDown={() => handleDown("pointer3")}
           onTouchStart={() => handleDown("pointer3")}
-          cx={pointers.pointer3.x}
-          cy={pointers.pointer3.y}
+          cx={pointer3X}
+          cy={pointer3Y}
           r={6}
         />
 
         <circle
           onMouseDown={() => handleDown("pointer4")}
           onTouchStart={() => handleDown("pointer4")}
-          cx={pointers.pointer4.x}
-          cy={pointers.pointer4.y}
+          cx={pointer4X}
+          cy={pointer4Y}
           r={6}
         />
       </svg>
