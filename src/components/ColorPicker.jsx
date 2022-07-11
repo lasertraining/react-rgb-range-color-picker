@@ -137,89 +137,87 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
     <Container>
       <canvas ref={canvasRef} width={width} height={height} />
 
-      <Pointers>
-        <svg
-          width={width}
-          height={height}
-          onMouseMove={handleMove}
-          onTouchMove={handleMove}
-          onMouseUp={handleUp}
-          onTouchEnd={handleUp}
-        >
-          <line
-            x1={pointers.pointer1.x}
-            y1={pointers.pointer1.y}
-            x2={pointers.pointer2.x}
-            y2={pointers.pointer2.y}
-          />
+      <Pointers
+        width={width}
+        height={height}
+        onMouseMove={handleMove}
+        onTouchMove={handleMove}
+        onMouseUp={handleUp}
+        onTouchEnd={handleUp}
+      >
+        <line
+          x1={pointers.pointer1.x}
+          y1={pointers.pointer1.y}
+          x2={pointers.pointer2.x}
+          y2={pointers.pointer2.y}
+        />
 
-          <line
-            x1={pointers.pointer2.x}
-            y1={pointers.pointer2.y}
-            x2={pointers.pointer3.x}
-            y2={pointers.pointer3.y}
-          />
+        <line
+          x1={pointers.pointer2.x}
+          y1={pointers.pointer2.y}
+          x2={pointers.pointer3.x}
+          y2={pointers.pointer3.y}
+        />
 
-          <line
-            x1={pointers.pointer3.x}
-            y1={pointers.pointer3.y}
-            x2={pointers.pointer4.x}
-            y2={pointers.pointer4.y}
-          />
+        <line
+          x1={pointers.pointer3.x}
+          y1={pointers.pointer3.y}
+          x2={pointers.pointer4.x}
+          y2={pointers.pointer4.y}
+        />
 
-          <line
-            x1={pointers.pointer4.x}
-            y1={pointers.pointer4.y}
-            x2={pointers.pointer1.x}
-            y2={pointers.pointer1.y}
-          />
+        <line
+          x1={pointers.pointer4.x}
+          y1={pointers.pointer4.y}
+          x2={pointers.pointer1.x}
+          y2={pointers.pointer1.y}
+        />
 
-          <circle
-            onMouseDown={() => handleDown("pointer1")}
-            onTouchStart={() => handleDown("pointer1")}
-            cx={pointers.pointer1.x}
-            cy={pointers.pointer1.y}
-            r={6}
-          />
+        <circle
+          onMouseDown={() => handleDown("pointer1")}
+          onTouchStart={() => handleDown("pointer1")}
+          cx={pointers.pointer1.x}
+          cy={pointers.pointer1.y}
+          r={6}
+        />
 
-          <circle
-            onMouseDown={() => handleDown("pointer2")}
-            onTouchStart={() => handleDown("pointer2")}
-            cx={pointers.pointer2.x}
-            cy={pointers.pointer2.y}
-            r={6}
-          />
+        <circle
+          onMouseDown={() => handleDown("pointer2")}
+          onTouchStart={() => handleDown("pointer2")}
+          cx={pointers.pointer2.x}
+          cy={pointers.pointer2.y}
+          r={6}
+        />
 
-          <circle
-            onMouseDown={() => handleDown("pointer3")}
-            onTouchStart={() => handleDown("pointer3")}
-            cx={pointers.pointer3.x}
-            cy={pointers.pointer3.y}
-            r={6}
-          />
+        <circle
+          onMouseDown={() => handleDown("pointer3")}
+          onTouchStart={() => handleDown("pointer3")}
+          cx={pointers.pointer3.x}
+          cy={pointers.pointer3.y}
+          r={6}
+        />
 
-          <circle
-            onMouseDown={() => handleDown("pointer4")}
-            onTouchStart={() => handleDown("pointer4")}
-            cx={pointers.pointer4.x}
-            cy={pointers.pointer4.y}
-            r={6}
-          />
-        </svg>
+        <circle
+          onMouseDown={() => handleDown("pointer4")}
+          onTouchStart={() => handleDown("pointer4")}
+          cx={pointers.pointer4.x}
+          cy={pointers.pointer4.y}
+          r={6}
+        />
       </Pointers>
     </Container>
   );
 };
 
 const Container = styled.div`
+  display: flex;
   position: relative;
 `;
 
-const Pointers = styled.div`
+const Pointers = styled.svg`
   position: absolute;
   top: 0;
   left: 0;
-  z-index: 1;
 
   circle {
     fill: #ffffff;
