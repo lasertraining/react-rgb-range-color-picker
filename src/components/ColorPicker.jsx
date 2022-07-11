@@ -134,17 +134,15 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
   };
 
   return (
-    <Container>
+    <Container
+      onMouseMove={handleMove}
+      onTouchMove={handleMove}
+      onMouseUp={handleUp}
+      onTouchEnd={handleUp}
+    >
       <canvas ref={canvasRef} width={width} height={height} />
 
-      <Pointers
-        width={width}
-        height={height}
-        onMouseMove={handleMove}
-        onTouchMove={handleMove}
-        onMouseUp={handleUp}
-        onTouchEnd={handleUp}
-      >
+      <svg width={width} height={height}>
         <line
           x1={pointers.pointer1.x}
           y1={pointers.pointer1.y}
@@ -204,7 +202,7 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
           cy={pointers.pointer4.y}
           r={6}
         />
-      </Pointers>
+      </svg>
     </Container>
   );
 };
@@ -212,21 +210,21 @@ const ColorPicker = ({ colorHSL, setColorRGBRange }) => {
 const Container = styled.div`
   display: flex;
   position: relative;
-`;
 
-const Pointers = styled.svg`
-  position: absolute;
-  top: 0;
-  left: 0;
+  svg {
+    position: absolute;
+    top: 0;
+    left: 0;
 
-  circle {
-    fill: #ffffff;
-    cursor: pointer;
-  }
+    line {
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
 
-  line {
-    stroke: #ffffff;
-    stroke-width: 2;
+    circle {
+      fill: #ffffff;
+      cursor: pointer;
+    }
   }
 `;
 
