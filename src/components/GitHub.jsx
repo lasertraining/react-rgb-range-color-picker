@@ -3,7 +3,11 @@ import styled from "styled-components";
 const GitHub = () => {
   return (
     <Container>
-      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+      <a
+        href="https://github.com/lasertraining/react-rgba-range-color-picker"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
