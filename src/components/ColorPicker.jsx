@@ -4,10 +4,6 @@ import { norm } from "../utils/norm";
 import styled from "styled-components";
 
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
-  const [down, setDown] = useState(false);
-
-  const [selectedPointer, setSelectedPointer] = useState("");
-
   const [pointers, setPointers] = useState({
     pointer1: { x: 0.7817708333333333, y: 0.206 },
     pointer2: { x: 0.6682291666666667, y: 0.134 },
@@ -16,6 +12,13 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   });
 
   const canvasRef = useRef(null);
+  const pointer1Ref = useRef(null);
+  const pointer2Ref = useRef(null);
+  const pointer3Ref = useRef(null);
+  const pointer4Ref = useRef(null);
+
+  let selectedPointer = "";
+  let dragging = false;
 
   const width = useWindowWidth() || window.innerWidth;
   const height = 500;
@@ -112,13 +115,14 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
     context.fillRect(0, 0, width, height);
   }, [width, colorHSLHue]);
 
-  const handleDown = (pointer) => {
-    setDown(true);
-    setSelectedPointer(pointer);
+  const handleDown = (e) => {
+    const { id: pointer } = e.target;
+    selectedPointer = pointer;
+    dragging = true;
   };
 
   const handleMove = (e) => {
-    if (down) {
+    if (dragging) {
       const canvas = canvasRef.current;
       const rect = canvas.getBoundingClientRect();
 
@@ -135,63 +139,91 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       const normalizedX = norm(x, 0, width);
       const normalizedY = norm(y, 0, height);
 
-      setPointers((prevState) => ({
-        ...prevState,
-        [selectedPointer]: { x: normalizedX, y: normalizedY },
-      }));
+      if (normalizedX >= 0 && normalizedX <= 1) {
+        setPointers((prevState) => ({
+          ...prevState,
+          [selectedPointer]: { ...prevState[selectedPointer], x: normalizedX },
+        }));
+      }
+
+      if (normalizedY >= 0 && normalizedY <= 1) {
+        setPointers((prevState) => ({
+          ...prevState,
+          [selectedPointer]: { ...prevState[selectedPointer], y: normalizedY },
+        }));
+      }
     }
   };
 
+  useEffect(() => {
+    pointer1Ref.current.addEventListener("mousedown", handleDown);
+    pointer1Ref.current.addEventListener("touchstart", handleDown);
+    pointer2Ref.current.addEventListener("mousedown", handleDown);
+    pointer2Ref.current.addEventListener("touchstart", handleDown);
+    pointer3Ref.current.addEventListener("mousedown", handleDown);
+    pointer3Ref.current.addEventListener("touchstart", handleDown);
+    pointer4Ref.current.addEventListener("mousedown", handleDown);
+    pointer4Ref.current.addEventListener("touchstart", handleDown);
+    window.addEventListener("mousemove", handleMove);
+    window.addEventListener("touchmove", handleMove);
+    window.addEventListener("mouseup", handleUp);
+    window.addEventListener("touchend", handleUp);
+
+    return () => {
+      pointer1Ref.current.removeEventListener("mousedown", handleDown);
+      pointer1Ref.current.removeEventListener("touchstart", handleDown);
+      pointer2Ref.current.removeEventListener("mousedown", handleDown);
+      pointer2Ref.current.removeEventListener("touchstart", handleDown);
+      pointer3Ref.current.removeEventListener("mousedown", handleDown);
+      pointer3Ref.current.removeEventListener("touchstart", handleDown);
+      pointer4Ref.current.removeEventListener("mousedown", handleDown);
+      pointer4Ref.current.removeEventListener("touchstart", handleDown);
+      window.removeEventListener("mousemove", handleMove);
+      window.removeEventListener("touchmove", handleMove);
+      window.removeEventListener("mouseup", handleUp);
+      window.removeEventListener("touchend", handleUp);
+    };
+  }, [width]);
+
   const handleUp = () => {
-    setDown(false);
-    setSelectedPointer("");
+    selectedPointer = "";
+    dragging = false;
   };
 
   return (
-    <Container
-      onMouseMove={handleMove}
-      onTouchMove={handleMove}
-      onMouseUp={handleUp}
-      onTouchEnd={handleUp}
-    >
+    <Container>
       <canvas ref={canvasRef} width={width} height={height} />
 
       <svg width={width} height={height}>
         <line x1={pointer1X} y1={pointer1Y} x2={pointer2X} y2={pointer2Y} />
-
         <line x1={pointer2X} y1={pointer2Y} x2={pointer3X} y2={pointer3Y} />
-
         <line x1={pointer3X} y1={pointer3Y} x2={pointer4X} y2={pointer4Y} />
-
         <line x1={pointer4X} y1={pointer4Y} x2={pointer1X} y2={pointer1Y} />
 
         <circle
-          onMouseDown={() => handleDown("pointer1")}
-          onTouchStart={() => handleDown("pointer1")}
+          id="pointer1"
+          ref={pointer1Ref}
           cx={pointer1X}
           cy={pointer1Y}
           r={6}
         />
-
         <circle
-          onMouseDown={() => handleDown("pointer2")}
-          onTouchStart={() => handleDown("pointer2")}
+          id="pointer2"
+          ref={pointer2Ref}
           cx={pointer2X}
           cy={pointer2Y}
           r={6}
         />
-
         <circle
-          onMouseDown={() => handleDown("pointer3")}
-          onTouchStart={() => handleDown("pointer3")}
+          id="pointer3"
+          ref={pointer3Ref}
           cx={pointer3X}
           cy={pointer3Y}
           r={6}
         />
-
         <circle
-          onMouseDown={() => handleDown("pointer4")}
-          onTouchStart={() => handleDown("pointer4")}
+          id="pointer4"
+          ref={pointer4Ref}
           cx={pointer4X}
           cy={pointer4Y}
           r={6}
