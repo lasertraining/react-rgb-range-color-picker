@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useWindowWidth } from "../hooks/useWindowWidth";
 import { norm } from "../utils/norm";
+import { isBetween } from "../utils/isBetween";
 import styled from "styled-components";
 
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
@@ -139,19 +140,17 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       const normalizedX = norm(x, 0, width);
       const normalizedY = norm(y, 0, height);
 
-      if (normalizedX >= 0 && normalizedX <= 1) {
-        setPointers((prevState) => ({
-          ...prevState,
-          [selectedPointer]: { ...prevState[selectedPointer], x: normalizedX },
-        }));
-      }
-
-      if (normalizedY >= 0 && normalizedY <= 1) {
-        setPointers((prevState) => ({
-          ...prevState,
-          [selectedPointer]: { ...prevState[selectedPointer], y: normalizedY },
-        }));
-      }
+      setPointers((prevState) => ({
+        ...prevState,
+        [selectedPointer]: {
+          x: isBetween(normalizedX, 0, 0.999)
+            ? normalizedX
+            : prevState[selectedPointer].x,
+          y: isBetween(normalizedY, 0, 0.999)
+            ? normalizedY
+            : prevState[selectedPointer].y,
+        },
+      }));
     }
   };
 
