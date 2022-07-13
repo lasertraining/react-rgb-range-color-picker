@@ -3,7 +3,7 @@ import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
 function Hue({ colorHSLHue, setColorHSLHue }) {
-  const [rangeValue, setRangeValue] = useState(0);
+  const [rangeValue, setRangeValue] = useState("1");
 
   const canvasRef = useRef(null);
 
@@ -14,7 +14,12 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
-    const { data: RGBData } = context.getImageData(rangeValue, 0, 1, 1);
+    const { data: RGBData } = context.getImageData(
+      parseInt(rangeValue),
+      0,
+      1,
+      1
+    );
 
     const red = RGBData[0];
     const green = RGBData[1];
