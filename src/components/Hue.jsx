@@ -1,32 +1,12 @@
-import { useState, useRef, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
 function Hue({ setColorHSLHue }) {
-  const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
-
   const canvasRef = useRef(null);
 
   const width = 250;
   const height = 10;
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-
-    const { data: RGBData } = context.getImageData(
-      coordinates.x,
-      coordinates.y,
-      1,
-      1
-    );
-
-    const red = RGBData[0];
-    const green = RGBData[1];
-    const blue = RGBData[2];
-
-    setColorHSLHue(RGBToHSL(red, green, blue));
-  }, [coordinates.x, coordinates.y]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -44,12 +24,19 @@ function Hue({ setColorHSLHue }) {
 
   const handleHue = (e) => {
     const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
 
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setCoordinates({ x, y });
+    const { data: RGBData } = context.getImageData(x, y, 1, 1);
+
+    const red = RGBData[0];
+    const green = RGBData[1];
+    const blue = RGBData[2];
+
+    setColorHSLHue(RGBToHSL(red, green, blue));
   };
 
   return (

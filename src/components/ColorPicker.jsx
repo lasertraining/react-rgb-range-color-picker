@@ -235,6 +235,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
 const Container = styled.div`
   display: flex;
   position: relative;
+  touch-action: none;
 
   svg {
     position: absolute;
