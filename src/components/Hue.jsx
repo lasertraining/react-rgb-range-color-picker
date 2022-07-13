@@ -54,7 +54,7 @@ function Hue({ setColorHSLHue }) {
 const Container = styled.div`
   display: flex;
   position: relative;
-  margin-top: 5rem;
+  margin-top: 2rem;
 
   canvas {
     cursor: pointer;
