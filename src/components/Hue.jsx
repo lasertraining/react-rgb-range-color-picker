@@ -45,7 +45,7 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
         type="range"
         value={rangeValue}
         onChange={(e) => setRangeValue(e.target.value)}
-        min="0"
+        min="1"
         max={width - 1}
         width={width}
         height={height}
