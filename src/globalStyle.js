@@ -10,6 +10,7 @@ export const GlobalStyle = createGlobalStyle`
   html {
     overflow-x: hidden;
     scroll-behavior: smooth;
+    overscroll-behavior-y: contain;
   }
 
   body {
