@@ -204,28 +204,28 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
           ref={pointer1Ref}
           cx={pointer1X}
           cy={pointer1Y}
-          r={6}
+          r={10}
         />
         <circle
           id="pointer2"
           ref={pointer2Ref}
           cx={pointer2X}
           cy={pointer2Y}
-          r={6}
+          r={10}
         />
         <circle
           id="pointer3"
           ref={pointer3Ref}
           cx={pointer3X}
           cy={pointer3Y}
-          r={6}
+          r={10}
         />
         <circle
           id="pointer4"
           ref={pointer4Ref}
           cx={pointer4X}
           cy={pointer4Y}
-          r={6}
+          r={10}
         />
       </svg>
     </Container>

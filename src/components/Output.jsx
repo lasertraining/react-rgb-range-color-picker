@@ -15,9 +15,14 @@ const Output = ({ colorRGBRange }) => {
 
 const Code = styled.code`
   margin-top: 3rem;
-  padding: 2rem;
   line-height: 1.7;
   text-align: center;
+
+  padding: 1.5rem 1rem;
+
+  @media (min-width: 400px) {
+    padding: 2rem 2.5rem;
+  }
 `;
 
 export default Output;

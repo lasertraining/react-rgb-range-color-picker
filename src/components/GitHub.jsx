@@ -26,9 +26,14 @@ const GitHub = () => {
 
 const Container = styled.div`
   position: absolute;
-  top: 2rem;
-  right: 2rem;
+  top: 1.5rem;
+  right: 1rem;
   z-index: 1;
+
+  @media (min-width: 400px) {
+    top: 2rem;
+    right: 2.5rem;
+  }
 
   a {
     display: flex;
