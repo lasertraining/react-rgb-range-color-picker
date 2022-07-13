@@ -1,8 +1,10 @@
-import { useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
 function Hue({ setColorHSLHue }) {
+  const [dragging, setDragging] = useState(false);
+
   const canvasRef = useRef(null);
 
   const width = 250;
@@ -27,8 +29,15 @@ function Hue({ setColorHSLHue }) {
     const context = canvas.getContext("2d");
     const rect = canvas.getBoundingClientRect();
 
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    const x =
+      e.type === "touchmove"
+        ? e.changedTouches[0].clientX - rect.left
+        : e.clientX - rect.left;
+
+    const y =
+      e.type === "touchmove"
+        ? e.changedTouches[0].clientY - rect.top
+        : e.clientY - rect.top;
 
     const { data: RGBData } = context.getImageData(x, y, 1, 1);
 
@@ -39,10 +48,30 @@ function Hue({ setColorHSLHue }) {
     setColorHSLHue(RGBToHSL(red, green, blue));
   };
 
+  const handleDown = () => {
+    setDragging(true);
+  };
+
+  const handleMove = (e) => {
+    if (dragging) {
+      handleHue(e);
+    }
+  };
+
+  const handleUp = () => {
+    setDragging(false);
+  };
+
   return (
     <Container>
       <canvas
         onClick={handleHue}
+        onMouseDown={handleDown}
+        onTouchStart={handleDown}
+        onMouseMove={handleMove}
+        onTouchMove={handleMove}
+        onMouseUp={handleUp}
+        onTouchEnd={handleUp}
         ref={canvasRef}
         width={width}
         height={height}
