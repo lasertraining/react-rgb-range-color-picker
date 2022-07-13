@@ -1,5 +1,5 @@
 {
-  "name": "rgb-range-color-picker",
+  "name": "react-rgb-range-color-picker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

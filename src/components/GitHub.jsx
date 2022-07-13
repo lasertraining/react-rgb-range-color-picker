@@ -4,7 +4,7 @@ const GitHub = () => {
   return (
     <Container>
       <a
-        href="https://github.com/lasertraining/react-rgba-range-color-picker"
+        href="https://github.com/lasertraining/react-rgb-range-color-picker"
         target="_blank"
         rel="noopener noreferrer"
       >
