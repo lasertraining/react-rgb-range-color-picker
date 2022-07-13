@@ -6,10 +6,10 @@ import styled from "styled-components";
 
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   const [pointers, setPointers] = useState({
-    pointer1: { x: 0.7817708333333333, y: 0.206 },
-    pointer2: { x: 0.6682291666666667, y: 0.134 },
-    pointer3: { x: 0.6442708333333333, y: 0.336 },
-    pointer4: { x: 0.725, y: 0.596 },
+    pointer1: { x: 0.9984375, y: 0 },
+    pointer2: { x: 0.5307291666666667, y: 0 },
+    pointer3: { x: 0.5994791666666667, y: 0.236 },
+    pointer4: { x: 0.75625, y: 0.254 },
   });
 
   const canvasRef = useRef(null);
