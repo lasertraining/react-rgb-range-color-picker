@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/react-rgb-range-color-picker/static/js/main.33ca5ad6.js",
+    "main.js": "/react-rgb-range-color-picker/static/js/main.5695dd2d.js",
     "index.html": "/react-rgb-range-color-picker/index.html",
-    "main.33ca5ad6.js.map": "/react-rgb-range-color-picker/static/js/main.33ca5ad6.js.map"
+    "main.5695dd2d.js.map": "/react-rgb-range-color-picker/static/js/main.5695dd2d.js.map"
   },
   "entrypoints": [
-    "static/js/main.33ca5ad6.js"
+    "static/js/main.5695dd2d.js"
   ]
 }
