@@ -37,6 +37,26 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
+    context.fillStyle = `hsl(${colorHSLHue[0]}, 100%, 50%)`;
+    context.fillRect(0, 0, width, height);
+
+    const whiteGradient = context.createLinearGradient(0, 0, width, 0);
+    whiteGradient.addColorStop(0, "hsla(0, 0%, 100%, 100%)");
+    whiteGradient.addColorStop(1, "hsla(0, 0%, 100%, 0%)");
+    context.fillStyle = whiteGradient;
+    context.fillRect(0, 0, width, height);
+
+    const blackGradient = context.createLinearGradient(0, height, 0, 0);
+    blackGradient.addColorStop(0, "hsla(0, 0%, 0%, 100%)");
+    blackGradient.addColorStop(1, "hsla(0, 0%, 0%, 0%");
+    context.fillStyle = blackGradient;
+    context.fillRect(0, 0, width, height);
+  }, [colorHSLHue, width]);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext("2d");
+
     const { data: pointer1Data } = context.getImageData(
       pointer1X,
       pointer1Y,
@@ -94,27 +114,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       blueMin: Math.min(...blue),
       blueMax: Math.max(...blue),
     });
-  }, [colorHSLHue, setColorRGBRange, pointers]);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const context = canvas.getContext("2d");
-
-    context.fillStyle = `hsl(${colorHSLHue[0]}, 100%, 50%)`;
-    context.fillRect(0, 0, width, height);
-
-    const whiteGradient = context.createLinearGradient(0, 0, width, 0);
-    whiteGradient.addColorStop(0, "hsla(0, 0%, 100%, 100%)");
-    whiteGradient.addColorStop(1, "hsla(0, 0%, 100%, 0%)");
-    context.fillStyle = whiteGradient;
-    context.fillRect(0, 0, width, height);
-
-    const blackGradient = context.createLinearGradient(0, height, 0, 0);
-    blackGradient.addColorStop(0, "hsla(0, 0%, 0%, 100%)");
-    blackGradient.addColorStop(1, "hsla(0, 0%, 0%, 0%");
-    context.fillStyle = blackGradient;
-    context.fillRect(0, 0, width, height);
-  }, [width, colorHSLHue]);
+  }, [colorHSLHue, pointers]);
 
   const handleDown = (e) => {
     const { id: pointer } = e.target;
