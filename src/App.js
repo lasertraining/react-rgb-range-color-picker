@@ -23,7 +23,7 @@ function App() {
         colorHSLHue={colorHSLHue}
         setColorRGBRange={setColorRGBRange}
       />
-      <Hue colorHSLHue={colorHSLHue} setColorHSLHue={setColorHSLHue} />
+      <Hue setColorHSLHue={setColorHSLHue} />
       <Output colorRGBRange={colorRGBRange} />
     </Wrapper>
   );

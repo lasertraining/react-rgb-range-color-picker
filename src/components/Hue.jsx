@@ -2,21 +2,21 @@ import { useState, useRef, useEffect } from "react";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
-function Hue({ colorHSLHue, setColorHSLHue }) {
-  const [rangeValue, setRangeValue] = useState("1");
+function Hue({ setColorHSLHue }) {
+  const [coordinates, setCoordinates] = useState({ x: 0, y: 0 });
 
   const canvasRef = useRef(null);
 
   const width = 250;
-  const height = 5;
+  const height = 10;
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
 
     const { data: RGBData } = context.getImageData(
-      parseInt(rangeValue),
-      0,
+      coordinates.x,
+      coordinates.y,
       1,
       1
     );
@@ -26,7 +26,7 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
     const blue = RGBData[2];
 
     setColorHSLHue(RGBToHSL(red, green, blue));
-  }, [rangeValue, setColorHSLHue]);
+  }, [coordinates.x, coordinates.y]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -42,19 +42,23 @@ function Hue({ colorHSLHue, setColorHSLHue }) {
     context.fillRect(0, 0, width, height);
   }, []);
 
+  const handleHue = (e) => {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    setCoordinates({ x, y });
+  };
+
   return (
     <Container>
-      <canvas ref={canvasRef} width={width} height={height} />
-
-      <Input
-        type="range"
-        value={rangeValue}
-        onChange={(e) => setRangeValue(e.target.value)}
-        min="1"
-        max={width - 1}
+      <canvas
+        onClick={handleHue}
+        ref={canvasRef}
         width={width}
         height={height}
-        color={`hsl(${colorHSLHue[0]},${colorHSLHue[1]}%, ${colorHSLHue[2]}%)`}
       />
     </Container>
   );
@@ -66,39 +70,6 @@ const Container = styled.div`
   margin-top: 5rem;
 
   canvas {
-    border-radius: 50px;
-  }
-`;
-
-const Input = styled.input`
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: ${({ width }) => `${width}px`};
-  height: ${({ height }) => `${height}px`};
-
-  -webkit-appearance: none;
-  appearance: none;
-  outline: none;
-  background: none;
-  border-radius: 50px;
-
-  &::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: ${({ color }) => color};
-    border-radius: 10px;
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-  }
-
-  &::-moz-range-thumb {
-    background-color: ${({ color }) => color};
-    border: none;
-    width: 15px;
-    height: 15px;
     cursor: pointer;
   }
 `;
