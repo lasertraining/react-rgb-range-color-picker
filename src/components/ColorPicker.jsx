@@ -7,7 +7,7 @@ import styled from "styled-components";
 const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   const [pointers, setPointers] = useState({
     pointer1: { x: 0.9984375, y: 0 },
-    pointer2: { x: 0.5307291666666667, y: 0 },
+    pointer2: { x: 0.5265588914549654, y: 0 },
     pointer3: { x: 0.5994791666666667, y: 0.236 },
     pointer4: { x: 0.75625, y: 0.254 },
   });
@@ -22,7 +22,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
   let dragging = false;
 
   const width = useWindowWidth() || window.innerWidth;
-  const height = 500;
+  const height = 450;
 
   const pointer1X = pointers.pointer1.x * width;
   const pointer1Y = pointers.pointer1.y * height;

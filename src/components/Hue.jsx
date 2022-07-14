@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from "react";
+import { isBetween } from "../utils/isBetween";
 import { RGBToHSL } from "../utils/RGBToHSL";
 import styled from "styled-components";
 
@@ -45,7 +46,9 @@ function Hue({ setColorHSLHue }) {
     const green = RGBData[1];
     const blue = RGBData[2];
 
-    setColorHSLHue(RGBToHSL(red, green, blue));
+    if (isBetween(x, 0, width - 0.1) && isBetween(y, 0, height - 0.1)) {
+      setColorHSLHue(RGBToHSL(red, green, blue));
+    }
   };
 
   const handleDown = () => {
@@ -83,6 +86,7 @@ function Hue({ setColorHSLHue }) {
 const Container = styled.div`
   display: flex;
   position: relative;
+  touch-action: none;
   margin-top: 2rem;
 
   canvas {
