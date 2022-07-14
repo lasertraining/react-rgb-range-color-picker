@@ -182,7 +182,7 @@ const ColorPicker = ({ colorHSLHue, setColorRGBRange }) => {
       window.removeEventListener("mouseup", handleUp);
       window.removeEventListener("touchend", handleUp);
     };
-  }, [width]);
+  }, [selectedPointer, width]);
 
   const handleUp = () => {
     selectedPointer = "";
